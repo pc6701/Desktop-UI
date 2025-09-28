@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Windows 10</title>
+  <link rel="icon" href="https://img.icons8.com/color/96/samsung.png" type="image/png">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.pexels.com/photos/17330220/pexels-photo-17330220.jpeg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .desktop {
+      height: calc(100% - 50px);
+      padding: 15px;
+      overflow-y: auto;
+      color: white;
+    }
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      color: white;
+      z-index: 1000;
+    }
+    .taskbar img {
+  filter: brightness(1.2); /* keep white icons visible */
+}
+/* Win10-style Search Bar */
+.taskbar-search input {
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 30px;
+}
+
+.taskbar-search input:focus {
+  width: 300px; /* expands on focus */
+  box-shadow: 0 0 5px rgba(255,255,255,0.6);
+  outline: none;
+}
+
+    .clock {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    /* Start menu */
+    #startMenu {
+      position: fixed;
+      bottom: 50px;
+      left: 10px;
+      width: 360px;
+      height: 500px;
+      background: rgba(20,20,20,0.95);
+      color: white;
+      display: none;
+      flex-direction: column;
+      border-radius: 6px;
+      z-index: 1100;
+      overflow: hidden;
+    }
+    #startMenu .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 5px;
+    }
+    #startMenu .footer {
+      background: rgba(0,0,0,0.7);
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    #startMenu .user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #startMenu .user img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+    .start-apps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .start-app {
+      text-align: center;
+      cursor: pointer;
+    }
+    .start-app img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
+    }
+ .app-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* responsive columns */
+  gap: 25px;                /* spacing between icons */
+  padding: 20px;
+  justify-items: center;    /* center each icon in its cell */
+  align-content: start;     /* keep everything at top */
+}
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80px;
+  cursor: pointer;
+  color: white;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.app-icon img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+.app-icon:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+}
+  </style>
+</head>
+<body>
+
+  <!-- Desktop (empty for now, focus is Start Menu) -->
+  <div class="desktop">
+        <div class="app-icons">
+     <div class="app-icon" onclick="openApp('https://www.google.com/drive/')">
+  <img src="https://img.icons8.com/?size=100&id=Vps0Nsl80v4P&format=png&color=000000"/>
+  <div>My Files</div>
+</div>
+<div class="app-icon" onclick="openApp('https://www.youtube.com')">
+<img src="https://img.icons8.com/?size=100&id=19318&format=png&color=000000"/>
+<div>Youtube</div>
+</div>
+<div class="app-icon" onclick="openApp('https://music.youtube.com')">
+  <img src="https://img.icons8.com/?size=100&id=6zadLh4Adjrp&format=png&color=000000"/>
+  <div>Youtube Music</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://instagram.com')">
+  <img src="https://img.icons8.com/?size=100&id=nj0Uj45LGUYh&format=png&color=000000"/>
+  <div>Instagram</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://facebook.com')">
+  <img src="https://img.icons8.com/?size=100&id=z657ovoGgS2o&format=png&color=000000"/>
+  <div>Facebook</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://linkedin.com')">
+  <img src="https://img.icons8.com/?size=100&id=kBCrQMzpQDLQ&format=png&color=000000"/>
+  <div>LinkedIn</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://play.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=L1ws9zn2uD01&format=png&color=000000"/>
+  <div>Play Store</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://google.com')">
+  <img src="https://img.icons8.com/?size=100&id=4hR4Ih04Je2t&format=png&color=000000"/>
+  <div>Google</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://www.google.com/chrome/')">
+  <img src="https://img.icons8.com/?size=100&id=wNk5l8VVfBQF&format=png&color=000000"/>
+  <div>CHROME</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://chat.openai.com')">
+  <img src="https://img.icons8.com/?size=100&id=ka3InxFU3QZa&format=png&color=000000"/>
+  <div>ChatGPT</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://open.spotify.com')">
+  <img src="https://img.icons8.com/?size=100&id=iefkXAGbJmaP&format=png&color=000000"/>
+  <div>Spotify</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://web.snapchat.com')">
+  <img src="https://img.icons8.com/?size=100&id=7VKXHaMW3lGB&format=png&color=000000"/>
+  <div>Snapchat</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://web.telegram.org')">
+  <img src="https://img.icons8.com/?size=100&id=k4jADXhS5U1t&format=png&color=000000"/>
+  <div>Telegram</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://web.whatsapp.com')">
+  <img src="https://img.icons8.com/?size=100&id=DUEq8l5qTqBE&format=png&color=000000"/>
+  <div>Whatsapp</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://messenger.com')">
+  <img src="https://img.icons8.com/?size=100&id=VFMgSms8GmnV&format=png&color=000000"/>
+  <div>Messenger</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://mail.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=Iq5AZypojpBD&format=png&color=000000"/>
+  <div>G-Mail</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://www.samsung.com')">
+  <img src="https://img.icons8.com/?size=100&id=pe27ynT1MJ5p&format=png&color=000000"/>
+  <div>Samsung Shop</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://gemini.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=jglTBkSsKDwI&format=png&color=000000"/>
+  <div>GEMINI AI</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://classroom.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=MobOlu3yhANA&format=png&color=000000"/>
+  <div>Google Classroom</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://discord.com')">
+  <img src="https://img.icons8.com/?size=100&id=lRyYU5vFuN82&format=png&color=000000"/>
+  <div>Discord</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://photos.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=7UEdo71zpeNV&format=png&color=000000"/>
+  <div>GOOGLE PHOTOS</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://play.google.com/store/games')">
+  <img src="https://img.icons8.com/?size=100&id=vzOZWe7EiFAC&format=png&color=000000"/>
+  <div>Play Games</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://calendar.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=WKF3bm1munsk&format=png&color=000000"/>
+  <div>Calendar</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://maps.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=DcygmpZqBEd9&format=png&color=000000"/>
+  <div>Google Maps</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://news.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=DcygmpZqBEd9&format=png&color=000000"/>
+  <div>Google News</div>
+</div>
+
+<div class="app-icon" onclick="openApp('https://meet.google.com')">
+  <img src="https://img.icons8.com/?size=100&id=pE97I4t7Il9M&format=png&color=000000"/>
+  <div>Google Meets</div>
+</div>
+
+<div class="app-icon" onclick="openApp('ms-settings://')">
+  <img src="https://img.icons8.com/color/48/settings--v1.png"/>
+  <div>Settings</div>
+</div>
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar align-items-center">
+<div>
+  <button class="btn btn-sm bg-light p-1" onclick="toggleStartMenu()">
+    <img src="https://img.icons8.com/?size=100&id=tpIcYSg4KMn0&format=png&color=000000" 
+         alt="Start" style="width:24px; height:24px;">
+  </button></div>
+
+  <!-- Taskbar Search (Win10 style) -->
+<div class="taskbar-search position-relative d-flex align-items-center ms-2 me-2" style="flex:1; max-width:250px;">
+  <input type="text" id="taskbarSearch" class="form-control form-control-sm rounded-pill border-0 bg-white text-dark ps-3 pe-3"
+         placeholder="Type here to search..." oninput="filterStartApps(this.value)">
+  <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" 
+       alt="Search" style="position:absolute; right:10px; width:18px; height:18px; pointer-events:none;">
+
+</div>
+
+
+
+   <div class="d-flex align-items-center gap-1">
+       
+       <!-- Battery -->
+  <div class="d-flex align-items-center gap-2">
+      <img id="batteryIcon" 
+           src="https://img.icons8.com/?size=100&id=78194&format=png&color=FFFFFF" 
+           alt="Battery" style="width:22px; height:22px;">
+      <span id="batteryPercent">100%</span>
+
+      <img src="https://img.icons8.com/?size=100&id=85509&format=png&color=FFFFFF" 
+           alt="WiFi" style="width:22px; height:22px;">
+
+      <img src="https://img.icons8.com/?size=100&id=6FZ2H0xzARfg&format=png&color=FFFFFF" 
+           alt="Volume" style="width:22px; height:22px;">
+    </div>
+
+    <!-- Clock + Date -->
+    <div class="clock text-end" id="clockBox">
+      <div id="clock"></div>
+      <div id="date"></div>
+    </div>
+
+  <!-- Start Menu -->
+  <div id="startMenu">
+    <!-- Search bar -->
+    <div class="p-2">
+      <input type="text" id="startSearch" class="form-control form-control-sm border-0"
+             placeholder="Search apps...">
+    </div>
+    <div class="content">
+      <div class="start-apps" id="appsContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="user">
+        <img src="https://img.icons8.com/color/48/user-male-circle--v1.png"/>
+        <span>Guest</span>
+      </div>
+      <div class="dropup">
+        <button class="btn btn-sm btn-dark dropdown-toggle" data-bs-toggle="dropdown">
+          <img src="https://img.icons8.com/?size=100&id=Zkyz6aJeb38t&format=png&color=FFFFFF" 
+               alt="Power" style="width:18px; height:18px;">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="SHUTDOWN.html ">SHUTDOWN</a></li>
+          <li><a class="dropdown-item" href="RESTART.html">RESTART</a></li>
+          <li><a class="dropdown-item" href="SLEEP.HTML">SLEEP</a></li>
+          <li><a class="dropdown-item" href="lock screen.html">LOCK SCREEN</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // App List with icons + URLs
+    const apps = [
+      { name: "Apple Music", icon: "https://img.icons8.com/color/48/apple-music.png", url: "https://music.apple.com" },
+      { name: "Docs", icon: "https://img.icons8.com/color/48/google-docs.png", url: "https://docs.google.com" },
+      { name: "Drive", icon: "https://img.icons8.com/color/48/google-drive--v2.png", url: "https://drive.google.com" },
+      { name: "Facebook", icon: "https://img.icons8.com/color/48/facebook.png", url: "https://facebook.com" },
+      { name: "FaceTime", icon: "https://img.icons8.com/color/48/facetime.png", url: "https://www.icloud.com/facetime" },
+      { name: "Files", icon: "https://img.icons8.com/?size=100&id=7wwF8ICpVUnQ&format=png&color=FFFFFF", url: "file:///D:/" },
+      { name: "Gmail", icon: "https://img.icons8.com/color/48/gmail-new.png", url: "https://mail.google.com" },
+      { name: "Instagram", icon: "https://img.icons8.com/color/48/instagram-new.png", url: "https://instagram.com" },
+      { name: "iCloud", icon: "https://img.icons8.com/color/48/icloud.png", url: "https://www.icloud.com" },
+      { name: "LinkedIn", icon: "https://img.icons8.com/color/48/linkedin.png", url: "https://linkedin.com" },
+      { name: "Maps", icon: "https://img.icons8.com/color/48/google-maps-new.png", url: "https://maps.google.com" },
+      { name: "Meet", icon: "https://img.icons8.com/color/48/google-meet.png", url: "https://meet.google.com" },
+      { name: "Office", icon: "https://img.icons8.com/?size=100&id=37619&format=png&color=000000", url: "https://www.office.com" },
+      { name: "OneDrive", icon: "https://img.icons8.com/color/48/microsoft-onedrive-2019.png", url: "https://onedrive.live.com" },
+      { name: "Outlook", icon: "https://img.icons8.com/color/48/ms-outlook.png", url: "https://outlook.live.com" },
+      { name: "Play Store", icon: "https://img.icons8.com/?size=100&id=L1ws9zn2uD01&format=png&color=000000", url: "https://play.google.com" },
+      { name: "Settings", icon: "https://img.icons8.com/color/48/settings--v1.png", url: "ms-settings://" },
+      { name: "Sheets", icon: "https://img.icons8.com/color/48/google-sheets.png", url: "https://sheets.google.com" },
+      { name: "Slides", icon: "https://img.icons8.com/color/48/google-slides.png", url: "https://slides.google.com" },
+      { name: "Teams", icon: "https://img.icons8.com/color/48/microsoft-teams.png", url: "https://teams.microsoft.com" },
+      { name: "Twitter", icon: "https://img.icons8.com/color/48/twitterx--v1.png", url: "https://twitter.com" },
+      { name: "WhatsApp", icon: "https://img.icons8.com/color/48/whatsapp.png", url: "https://web.whatsapp.com" },
+      { name: "YouTube", icon: "https://img.icons8.com/color/48/youtube-play.png", url: "https://www.youtube.com" }
+    ];
+
+    // Sort A → Z
+    apps.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Render Start Menu Apps
+    const appsContainer = document.getElementById("appsContainer");
+    apps.forEach(app => {
+      const div = document.createElement("div");
+      div.className = "start-app";
+      div.dataset.name = app.name.toLowerCase();
+      div.innerHTML = `<img src="${app.icon}"/><div>${app.name}</div>`;
+      div.onclick = () => openApp(app.url);
+      appsContainer.appendChild(div);
+    });
+    // Toggle Start Menu
+function toggleStartMenu() {
+  const startMenu = document.getElementById("startMenu");
+  if (startMenu.style.display === "flex") {
+    startMenu.style.display = "none";
+  } else {
+    startMenu.style.display = "flex";
+  }
+}
+
+// Close Start Menu when clicking outside
+document.addEventListener("click", function(event) {
+  const startMenu = document.getElementById("startMenu");
+  const startButton = event.target.closest('button');
+  if (!event.target.closest("#startMenu") && !startButton) {
+    startMenu.style.display = "none";
+  }
+});
+
+
+    // Open App
+    const appMap = {
+  facebook: "https://facebook.com",
+  instagram: "https://instagram.com",
+  linkedin: "https://linkedin.com",
+  gmail: "https://mail.google.com",
+  whatsapp: "https://web.whatsapp.com",
+  telegram: "https://web.telegram.org",
+  spotify: "https://open.spotify.com",
+  chrome: "https://google.com/chrome",
+  google: "https://google.com",
+  playstore: "https://play.google.com",
+  gpt: "https://chat.openai.com",
+  maps: "https://maps.google.com",
+  news: "https://news.google.com",
+  meet: "https://meet.google.com",
+  calendar: "https://calendar.google.com",
+  photos: "https://photos.google.com"
+};
+
+function openApp(input) {
+  let url = input;
+  if (!input.startsWith("http")) {
+    url = appMap[input.toLowerCase()] || "#";
+  }
+  if (url === "#") {
+    alert("App not available.");
+  } else {
+    window.open(url, "_blank");
+  }
+}
+
+<!--SearchBAr-->
+// Filter apps in Start Menu from taskbar search (same as before)
+function filterStartApps(query) {
+  const apps = document.querySelectorAll("#appsContainer .start-app");
+  apps.forEach(app => {
+    const name = app.dataset.name;
+    app.style.display = name.includes(query.toLowerCase()) ? "block" : "none";
+  });
+
+  // Open Start menu automatically when typing
+  document.getElementById("startMenu").style.display = query.length > 0 ? "flex" : "none";
+}
+
+<!-- Battery Icons -->
+navigator.getBattery().then(function(battery) {
+  function updateBatteryIcon() {
+    const icon = document.getElementById("batteryIcon");
+    const percent = document.getElementById("batteryPercent");
+    const level = Math.round(battery.level * 100);
+
+    // Show % text
+    percent.textContent = battery.charging ? `${level}%` : `${level}%`;
+
+    // Update icon by level
+    if (battery.charging) {
+      icon.src = "https://img.icons8.com/?size=100&id=SmJ2dwxsDrB3&format=png&color=FFFFFF"; 
+    } else if (level > 80) {
+      icon.src = "https://img.icons8.com/?size=100&id=78194&format=png&color=FFFFFF"; 
+    } else if (level > 50) {
+      icon.src = "https://img.icons8.com/?size=100&id=59804&format=png&color=FFFFFF"; 
+    } else if (level > 20) {
+      icon.src = "https://img.icons8.com/?size=100&id=78188&format=png&color=FFFFFF"; 
+    } else {
+      icon.src = "https://img.icons8.com/?size=100&id=78200&format=png&color=FFFFFF"; 
+    }
+  }
+
+  updateBatteryIcon();
+  battery.addEventListener("chargingchange", updateBatteryIcon);
+  battery.addEventListener("levelchange", updateBatteryIcon);
+});
+<!-- Clock -->
+   function updateClock() {
+  const now = new Date();
+  
+  // Time (HH:MM:SS)
+  document.getElementById("clock").innerText =
+    now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  
+  // Date (DD/MM/YYYY)
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  document.getElementById("date").innerText = `${day}/${month}/${year}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+  </script>
+</body>
+</html>

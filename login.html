@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows 10</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Segoe UI, Arial, sans-serif;
+      color: white;
+      background: url('GIYU.jpg') no-repeat center center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Overlay for blur */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.4); /* optional dark tint */
+      z-index: 0;
+    }
+
+    .login-box {
+      position: relative;
+      z-index: 1; /* keep above blur */
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #0078d4;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #0078d4;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #005a9e;
+    }
+
+    .link {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #9ecfff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Blur overlay -->
+  <div class="overlay"></div>
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <div class="avatar">P</div>
+    <h2>SAM CHAUHAN</h2>
+    <input type="password" id="password" placeholder="Enter password ">
+    <button onclick="signIn()" type="button">Sign In</button>
+    <div class="link" onclick="forgotPassword()">Forgot password?</div>
+    <div><p><strong>HINT:</strong>1234</p></div>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    function signIn() {
+      let pwd = document.getElementById("password").value;
+      let msg = document.getElementById("message");
+      if (pwd === "1234") {
+        window.location.href = "mainpage.html"; // Redirect to another page
+      } else {
+        msg.style.color = "red";
+        msg.innerText = "Incorrect password.";
+      }
+    }
+
+    function forgotPassword() {
+      alert("Password reset link sent to your email (simulated).");
+    }
+  </script>
+</body>
+</html>
